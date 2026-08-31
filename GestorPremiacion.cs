@@ -55,5 +55,64 @@ namespace PremiacionDeportistas
 
             return true;
         }
+
+        public bool OtorgarPremio(int idDeportista, TipoMedalla medalla)
+        {
+            if (!deportistas.ContainsKey(idDeportista))
+                return false;
+
+            Deportista deportista = deportistas[idDeportista];
+            deportista.Medallas.Add(medalla);
+
+            medallero[deportista.Pais] = medallero[deportista.Pais] + 1;
+            conteoMedallasPorTipo[medalla] = conteoMedallasPorTipo[medalla] + 1;
+
+            return true;
+        }
+
+        public IEnumerable<string> ObtenerDisciplinas()
+        {
+            return disciplinas.OrderBy(d => d);
+        }
+
+        public List<Deportista> ObtenerDeportistasPorDisciplina(string disciplina)
+        {
+            if (deportistasPorDisciplina.ContainsKey(disciplina))
+                return deportistasPorDisciplina[disciplina];
+            return new List<Deportista>();
+        }
+
+        public HashSet<string> ObtenerPaisesPorDisciplina(string disciplina)
+        {
+            if (paisesPorDisciplina.ContainsKey(disciplina))
+                return paisesPorDisciplina[disciplina];
+            return new HashSet<string>();
+        }
+
+        public Deportista BuscarDeportistaPorId(int id)
+        {
+            deportistas.TryGetValue(id, out Deportista deportista);
+            return deportista;
+        }
+
+        public SortedDictionary<string, int> ObtenerMedallero()
+        {
+            return medallero;
+        }
+
+        public Dictionary<TipoMedalla, int> ObtenerConteoPorTipoMedalla()
+        {
+            return conteoMedallasPorTipo;
+        }
+
+        public int TotalDeportistas()
+        {
+            return deportistas.Count;
+        }
+
+        public int TotalDisciplinas()
+        {
+            return disciplinas.Count;
+        }
     }
 }

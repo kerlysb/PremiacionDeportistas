@@ -92,16 +92,21 @@ namespace PremiacionDeportistas
 
         static int LeerOpcion()
         {
-            int opcion;
-            bool valido = int.TryParse(Console.ReadLine(), out opcion);
+            bool valido = int.TryParse(Console.ReadLine(), out int opcion);
             return valido ? opcion : -1;
         }
 
         static void RegistrarDisciplina()
         {
             Console.Write("Nombre de la disciplina: ");
-            string disciplina = Console.ReadLine().Trim();
-            bool resultado = gestor.RegistrarDisciplina(disciplina);
+            string? disciplina = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(disciplina))
+            {
+                Console.WriteLine("Nombre de disciplina inválido.");
+                return;
+            }
+
+            bool resultado = gestor.RegistrarDisciplina(disciplina.Trim());
             Console.WriteLine(resultado
                 ? "Disciplina registrada correctamente."
                 : "La disciplina ya existe en el conjunto.");
@@ -110,15 +115,22 @@ namespace PremiacionDeportistas
         static void RegistrarDeportista()
         {
             Console.Write("ID: ");
-            int id = int.Parse(Console.ReadLine());
-            Console.Write("Nombre: ");
-            string nombre = Console.ReadLine().Trim();
-            Console.Write("Pais: ");
-            string pais = Console.ReadLine().Trim();
-            Console.Write("Disciplina: ");
-            string disciplina = Console.ReadLine().Trim();
+            if (!int.TryParse(Console.ReadLine(), out int id)) { Console.WriteLine("ID inválido."); return; }
 
-            Deportista nuevo = new Deportista(id, nombre, pais, disciplina);
+            Console.Write("Nombre: ");
+            string? nombre = Console.ReadLine();
+            Console.Write("Pais: ");
+            string? pais = Console.ReadLine();
+            Console.Write("Disciplina: ");
+            string? disciplina = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(pais) || string.IsNullOrWhiteSpace(disciplina))
+            {
+                Console.WriteLine("Todos los campos son obligatorios.");
+                return;
+            }
+
+            Deportista nuevo = new Deportista(id, nombre.Trim(), pais.Trim(), disciplina.Trim());
             bool resultado = gestor.RegistrarDeportista(nuevo);
             Console.WriteLine(resultado
                 ? "Deportista registrado correctamente."
@@ -128,9 +140,10 @@ namespace PremiacionDeportistas
         static void OtorgarPremio()
         {
             Console.Write("ID del deportista: ");
-            int id = int.Parse(Console.ReadLine());
+            if (!int.TryParse(Console.ReadLine(), out int id)) { Console.WriteLine("ID inválido."); return; }
+
             Console.WriteLine("Tipo de medalla: 1-Oro 2-Plata 3-Bronce");
-            int tipo = int.Parse(Console.ReadLine());
+            if (!int.TryParse(Console.ReadLine(), out int tipo)) { Console.WriteLine("Opción inválida."); return; }
 
             TipoMedalla medalla;
             switch (tipo)
@@ -139,7 +152,7 @@ namespace PremiacionDeportistas
                 case 2: medalla = TipoMedalla.Plata; break;
                 case 3: medalla = TipoMedalla.Bronce; break;
                 default:
-                    Console.WriteLine("Opcion invalida.");
+                    Console.WriteLine("Opcion de medalla invalida.");
                     return;
             }
 
@@ -152,10 +165,11 @@ namespace PremiacionDeportistas
         static void ConsultarPorDisciplina()
         {
             Console.Write("Disciplina a consultar: ");
-            string disciplina = Console.ReadLine().Trim();
+            string? disciplina = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(disciplina)) return;
 
-            var deportistas = gestor.ObtenerDeportistasPorDisciplina(disciplina);
-            var paises = gestor.ObtenerPaisesPorDisciplina(disciplina);
+            var deportistas = gestor.ObtenerDeportistasPorDisciplina(disciplina.Trim());
+            var paises = gestor.ObtenerPaisesPorDisciplina(disciplina.Trim());
 
             Console.WriteLine($"\nDeportistas en {disciplina}:");
             if (deportistas.Count == 0)
@@ -185,8 +199,31 @@ namespace PremiacionDeportistas
         static void BuscarPorId()
         {
             Console.Write("ID del deportista: ");
-            int id = int.Parse(Console.ReadLine());
+            if (!int.TryParse(Console.ReadLine(), out int id)) { Console.WriteLine("ID inválido."); return; }
+
             var deportista = gestor.BuscarDeportistaPorId(id);
+            if (deportista != null)
+            {
+                Console.WriteLine($"\nDeportista encontrado: {deportista}");
+            }
+            else
+            {
+                Console.WriteLine("\nNo se encontró ningún deportista con ese ID.");
+            }
+        }
+
+        static void MostrarReporteGeneral()
+        {
+            Console.WriteLine("\n=== REPORTE GENERAL ===");
+            Console.WriteLine($"Total de Disciplinas: {gestor.TotalDisciplinas()}");
+            Console.WriteLine($"Total de Deportistas: {gestor.TotalDeportistas()}");
+            
+            var conteoMedallas = gestor.ObtenerConteoPorTipoMedalla();
+            Console.WriteLine("\nMedallas entregadas por tipo:");
+            foreach (var item in conteoMedallas)
+            {
+                Console.WriteLine($"- {item.Key}: {item.Value}");
+            }
         }
     }
-}        
+}

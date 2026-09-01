@@ -15,12 +15,12 @@ namespace PremiacionDeportistas
 
         public GestorPremiacion()
         {
-                disciplinas = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                deportistas = new Dictionary<int, Deportista>();
-                deportistasPorDisciplina = new Dictionary<string, List<Deportista>>(StringComparer.OrdinalIgnoreCase);
-                paisesPorDisciplina = new Dictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
-                medallero = new SortedDictionary<string, int>();
-                conteoMedallasPorTipo = new Dictionary<TipoMedalla, int>
+            disciplinas = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            deportistas = new Dictionary<int, Deportista>();
+            deportistasPorDisciplina = new Dictionary<string, List<Deportista>>(StringComparer.OrdinalIgnoreCase);
+            paisesPorDisciplina = new Dictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
+            medallero = new SortedDictionary<string, int>();
+            conteoMedallasPorTipo = new Dictionary<TipoMedalla, int>
             {
                 { TipoMedalla.Oro, 0 },
                 { TipoMedalla.Plata, 0 },
@@ -30,6 +30,7 @@ namespace PremiacionDeportistas
 
         public bool RegistrarDisciplina(string nombreDisciplina)
         {
+            if (string.IsNullOrWhiteSpace(nombreDisciplina)) return false;
             bool agregada = disciplinas.Add(nombreDisciplina);
             if (agregada)
             {
@@ -41,7 +42,7 @@ namespace PremiacionDeportistas
 
         public bool RegistrarDeportista(Deportista deportista)
         {
-            if (deportistas.ContainsKey(deportista.Id))
+            if (deportista == null || deportistas.ContainsKey(deportista.Id))
                 return false;
 
             if (!disciplinas.Contains(deportista.Disciplina))
@@ -78,21 +79,21 @@ namespace PremiacionDeportistas
 
         public List<Deportista> ObtenerDeportistasPorDisciplina(string disciplina)
         {
-            if (deportistasPorDisciplina.ContainsKey(disciplina))
+            if (disciplina != null && deportistasPorDisciplina.ContainsKey(disciplina))
                 return deportistasPorDisciplina[disciplina];
             return new List<Deportista>();
         }
 
         public HashSet<string> ObtenerPaisesPorDisciplina(string disciplina)
         {
-            if (paisesPorDisciplina.ContainsKey(disciplina))
+            if (disciplina != null && paisesPorDisciplina.ContainsKey(disciplina))
                 return paisesPorDisciplina[disciplina];
             return new HashSet<string>();
         }
 
-        public Deportista BuscarDeportistaPorId(int id)
+        public Deportista? BuscarDeportistaPorId(int id)
         {
-            deportistas.TryGetValue(id, out Deportista deportista);
+            deportistas.TryGetValue(id, out Deportista? deportista);
             return deportista;
         }
 

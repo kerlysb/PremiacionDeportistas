@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,12 +15,12 @@ namespace PremiacionDeportistas
 
         public GestorPremiacion()
         {
-            disciplinas = new HashSet<string>();
-            deportistas = new Dictionary<int, Deportista>();
-            deportistasPorDisciplina = new Dictionary<string, List<Deportista>>();
-            paisesPorDisciplina = new Dictionary<string, HashSet<string>>();
-            medallero = new SortedDictionary<string, int>();
-            conteoMedallasPorTipo = new Dictionary<TipoMedalla, int>
+                disciplinas = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                deportistas = new Dictionary<int, Deportista>();
+                deportistasPorDisciplina = new Dictionary<string, List<Deportista>>(StringComparer.OrdinalIgnoreCase);
+                paisesPorDisciplina = new Dictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
+                medallero = new SortedDictionary<string, int>();
+                conteoMedallasPorTipo = new Dictionary<TipoMedalla, int>
             {
                 { TipoMedalla.Oro, 0 },
                 { TipoMedalla.Plata, 0 },

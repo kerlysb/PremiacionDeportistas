@@ -1,0 +1,15 @@
+C:\Users\kerli\PremiacionDeportistas\bin\Debug\net10.0\PremiacionDeportistas.exe
+C:\Users\kerli\PremiacionDeportistas\bin\Debug\net10.0\PremiacionDeportistas.deps.json
+C:\Users\kerli\PremiacionDeportistas\bin\Debug\net10.0\PremiacionDeportistas.runtimeconfig.json
+C:\Users\kerli\PremiacionDeportistas\bin\Debug\net10.0\PremiacionDeportistas.dll
+C:\Users\kerli\PremiacionDeportistas\bin\Debug\net10.0\PremiacionDeportistas.pdb
+C:\Users\kerli\PremiacionDeportistas\obj\Debug\net10.0\PremiacionDeportistas.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kerli\PremiacionDeportistas\obj\Debug\net10.0\PremiacionDeportistas.AssemblyInfoInputs.cache
+C:\Users\kerli\PremiacionDeportistas\obj\Debug\net10.0\PremiacionDeportistas.AssemblyInfo.cs
+C:\Users\kerli\PremiacionDeportistas\obj\Debug\net10.0\PremiacionDeportistas.csproj.CoreCompileInputs.cache
+C:\Users\kerli\PremiacionDeportistas\obj\Debug\net10.0\PremiacionDeportistas.sourcelink.json
+C:\Users\kerli\PremiacionDeportistas\obj\Debug\net10.0\PremiacionDeportistas.dll
+C:\Users\kerli\PremiacionDeportistas\obj\Debug\net10.0\refint\PremiacionDeportistas.dll
+C:\Users\kerli\PremiacionDeportistas\obj\Debug\net10.0\PremiacionDeportistas.pdb
+C:\Users\kerli\PremiacionDeportistas\obj\Debug\net10.0\PremiacionDeportistas.genruntimeconfig.cache
+C:\Users\kerli\PremiacionDeportistas\obj\Debug\net10.0\ref\PremiacionDeportistas.dll

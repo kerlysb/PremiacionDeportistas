@@ -101,7 +101,7 @@ namespace PremiacionDeportistas
         {
             Console.Write("Nombre de la disciplina: ");
             string disciplina = Console.ReadLine().Trim();
-            bool resultado = gestor.RegistrarDisciplina(nombre);
+            bool resultado = gestor.RegistrarDisciplina(disciplina);
             Console.WriteLine(resultado
                 ? "Disciplina registrada correctamente."
                 : "La disciplina ya existe en el conjunto.");
@@ -112,11 +112,11 @@ namespace PremiacionDeportistas
             Console.Write("ID: ");
             int id = int.Parse(Console.ReadLine());
             Console.Write("Nombre: ");
-            string nombre = Console.ReadLine();
+            string nombre = Console.ReadLine().Trim();
             Console.Write("Pais: ");
-            string pais = Console.ReadLine();
+            string pais = Console.ReadLine().Trim();
             Console.Write("Disciplina: ");
-            string disciplina = Console.ReadLine();
+            string disciplina = Console.ReadLine().Trim();
 
             Deportista nuevo = new Deportista(id, nombre, pais, disciplina);
             bool resultado = gestor.RegistrarDeportista(nuevo);
@@ -187,22 +187,3 @@ namespace PremiacionDeportistas
             Console.Write("ID del deportista: ");
             int id = int.Parse(Console.ReadLine());
             var deportista = gestor.BuscarDeportistaPorId(id);
-            Console.WriteLine(deportista != null ? deportista.ToString() : "Deportista no encontrado.");
-        }
-
-        static void MostrarReporteGeneral()
-        {
-            Console.WriteLine("\n=== REPORTE GENERAL ===");
-            Console.WriteLine($"Total de deportistas: {gestor.TotalDeportistas()}");
-            Console.WriteLine($"Total de disciplinas: {gestor.TotalDisciplinas()}");
-
-            Console.WriteLine("\nMedallas por tipo:");
-            foreach (var par in gestor.ObtenerConteoPorTipoMedalla())
-                Console.WriteLine($"{par.Key}: {par.Value}");
-
-            Console.WriteLine("\nMedallero por pais:");
-            foreach (var par in gestor.ObtenerMedallero())
-                Console.WriteLine($"{par.Key}: {par.Value} medallas");
-        }
-    }
-}

@@ -187,3 +187,6 @@ namespace PremiacionDeportistas
             Console.Write("ID del deportista: ");
             int id = int.Parse(Console.ReadLine());
             var deportista = gestor.BuscarDeportistaPorId(id);
+        }
+    }
+}        

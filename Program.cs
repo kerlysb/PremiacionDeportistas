@@ -100,7 +100,7 @@ namespace PremiacionDeportistas
         static void RegistrarDisciplina()
         {
             Console.Write("Nombre de la disciplina: ");
-            string nombre = Console.ReadLine();
+            string disciplina = Console.ReadLine().Trim();
             bool resultado = gestor.RegistrarDisciplina(nombre);
             Console.WriteLine(resultado
                 ? "Disciplina registrada correctamente."
@@ -152,7 +152,7 @@ namespace PremiacionDeportistas
         static void ConsultarPorDisciplina()
         {
             Console.Write("Disciplina a consultar: ");
-            string disciplina = Console.ReadLine();
+            string disciplina = Console.ReadLine().Trim();
 
             var deportistas = gestor.ObtenerDeportistasPorDisciplina(disciplina);
             var paises = gestor.ObtenerPaisesPorDisciplina(disciplina);
